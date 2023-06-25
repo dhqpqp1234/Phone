@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.example.phone.dao.MenuDao">
+    <select id="phoneList" resultType="com.example.phone.dto.ProductDto" >
+        SELECT  RN.*,
+                ROWNUM AS RNUM
+        FROM (SELECT
+                        PI.PRODUCT_NO AS PRODUCTNO,
+                        PI.PRODUCT_NM AS PRODUCTNM,
+                        PI.PRICE AS PRICE,
+                        PI.CONTENT AS CONTENT,
+                        (SELECT MAX(SAVENAME)
+                         FROM SHOPPINGFILE SF
+                         WHERE SF.REGNO = PI.PRODUCT_NO
+                         GROUP BY REGNO) AS SAVENAME
+              FROM PRODUCT_INFO PI
+              INNER JOIN CATEGORY CG
+              ON CG.CATEGORY_NO = PI.CATEGORY
+              WHERE PI.CATEGORY = 'CT001') RN
+
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.example.phone.dao.UserDao">
+    <!-- 회원가입 -->
+    <insert id="userInsert" parameterType="com.example.phone.dto.UserDto" >
+        INSERT INTO CUST_INFO VALUES(CUST_INFO_SEQ.NEXTVAL,#{custNm},SYSDATE,#{custId},#{custPw},#{custEmail},#{custPh})
+    </insert>
+
+    <!-- id중복체크 -->
+    <select id="idCheck" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM CUST_INFO
+        WHERE CUST_ID = #{custId}
+    </select>
+
+    <!-- ph중복체크 -->
+    <select id="phCheck" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM CUST_INFO
+        WHERE CUST_PH = #{custPh}
+    </select>
+
+    <!-- Login -->
+    <select id="getUser" parameterType="com.example.phone.dto.UserDto" resultType="com.example.phone.dto.UserDto">
+        SELECT  CUST_INFO_NO AS CUSTINFONO,
+                CUST_NM AS CUSTNM,
+                REG_DTTM AS CUSTREGDTTM,
+                CUST_ID AS CUSTID,
+                CUST_PW AS CUSTPW,
+                CUST_EMAIL AS CUSTEMAIL,
+                CUST_PH AS CUSTPH
+        FROM CUST_INFO
+        WHERE CUST_ID = #{custId}
+        AND CUST_PW = #{custPw}
+    </select>
+</mapper>

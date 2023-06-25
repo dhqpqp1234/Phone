@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.example.phone.dao.ProductDao">
+    <!-- 상품등록 -->
+    <insert id="productInsert" parameterType="Map">
+        <selectKey keyProperty="productNo" resultType="int" order="BEFORE">
+            SELECT PRODUCT_INFO_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO PRODUCT_INFO VALUES(#{productNo},#{category},#{productNm},#{price},SYSDATE,#{content})
+    </insert>
+
+    <!-- 상품재고 등록 -->
+    <insert id="countInsert" parameterType="Map">
+        INSERT INTO INVENTORY VALUES(#{productNo},#{itCount})
+    </insert>
+
+    <!-- 사진등록 -->
+    <insert id="fileInsert" parameterType="Map">
+        INSERT INTO SHOPPINGFILE VALUES(SHOPPINGFILE_SEQ.NEXTVAL,#{orgName},#{saveName},#{filePath},#{fileSize},#{regNo})
+    </insert>
+
+    <!-- 등록상품 정보 가져오기 -->
+    <select id="selectList" resultType="com.example.phone.dto.ProductDto" parameterType="com.example.phone.dto.ProductDto">
+        <![CDATA[
+            SELECT *
+            FROM(SELECT  RN.*,
+                         ROWNUM AS RNUM
+                 FROM (SELECT  PI.PRODUCT_NO AS PRODUCTNO,
+                               PI.PRODUCT_NM AS PRODUCTNM,
+                               PI.CATEGORY AS CATEGORY,
+                               CG.CATEGORY_NM AS CATEGORYNM,
+                               PI.PRICE AS PRICE,
+                               TO_CHAR(PI.REG_DTTM,'YYYY-MM-DD') AS REGDTTM
+                       FROM PRODUCT_INFO PI
+                       INNER JOIN CATEGORY CG
+                       ON PI.CATEGORY = CG.CATEGORY_NO
+                       ORDER BY REGDTTM ASC) RN
+        ]]>
+             <if test="searchType == 'searchTitle' and keyword != null and keyword != ''">
+                 WHERE RN.PRODUCTNM LIKE '%'||#{keyword}||'%'
+             </if>
+             <if test="searchType == 'searchCate' and keyword != '' and keyword != null">
+                 AND RN.CATEGORYNM LIKE '%'||#{keyword}||'%'
+             </if>
+        <![CDATA[
+        ) RNN
+        WHERE RNN.RNUM >= #{startIndex}
+        AND RNN.RNUM <= #{endIndex}
+        ]]>
+    </select>
+
+    <!-- 상품삭제 -->
+    <delete id="proDelete" parameterType="int">
+        DELETE FROM PRODUCT_INFO WHERE PRODUCT_NO = #{productNo}
+    </delete>
+
+    <!-- 재고수 삭제 -->
+    <delete id="invenDelete" parameterType="int">
+        DELETE FROM INVENTORY WHERE PRODUCT_NO = #{productNo}
+    </delete>
+
+    <!-- 글 개수 가져오기 -->
+    <select id="totalCnt" parameterType="com.example.phone.dto.ProductDto" resultType="int">
+        SELECT COUNT(*) FROM PRODUCT_INFO
+    </select>
+
+    <!-- 상품 상세정보 -->
+    <select id="getproduct" parameterType="int" resultType="com.example.phone.dto.ProductDto">
+        SELECT
+                 PI.PRODUCT_NO AS PRODUCTNO,
+                 PI.PRODUCT_NM AS PRODUCTNM,
+                 PI.PRICE AS PRICE,
+                 PI.CONTENT AS CONTENT,
+                 TO_CHAR(PI.REG_DTTM,'YYYY-MM-DD') AS REGDTTM,
+                 IV.IT_COUNT,
+                 CG.CATEGORY_NM AS CATEGORYNM,
+                 (
+                     SELECT
+                         MAX(SAVENAME) AS SAVENAME
+                     FROM SHOPPINGFILE SF
+                     WHERE SF.REGNO = PI.PRODUCT_NO
+                     GROUP BY REGNO
+                 ) AS SAVENAME
+        FROM PRODUCT_INFO PI
+        INNER JOIN INVENTORY IV
+        ON PI.PRODUCT_NO = IV.PRODUCT_NO
+        INNER JOIN CATEGORY CG
+        ON PI.CATEGORY = CG.CATEGORY_NO
+        WHERE 1 = 1
+        AND PI.PRODUCT_NO = #{productNo}
+        ORDER BY PI.REG_DTTM DESC
+    </select>
+
+    <!-- 사진리스트 -->
+    <select id="selectFile" parameterType="int" resultType="com.example.phone.dto.ProductDto">
+        SELECT  PI.PRODUCT_NO AS PRODUCTNO,
+                SF.SAVENAME AS SAVENAME,
+                SF.FILEPATH AS FILEPATH
+        FROM SHOPPINGFILE SF
+        INNER JOIN PRODUCT_INFO PI
+        ON PI.PRODUCT_NO = SF.REGNO
+        WHERE PI.PRODUCT_NO = #{productNo}
+    </select>
+</mapper>

@@ -1,0 +1,519 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'TTCrownMychewR';
+    src:
+            url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/TTCrownMychewR.woff2')
+            format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+/* ***************초기화*************************** */
+/* 여백초기화 */
+body, div, ul, li, dl, dt, ol, h1, h2, h3, h4, h5, h6, input, fieldset,
+legend, p, select, table, th, td, tr, textarea, button, form {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 12px;
+    font-family: "맑은 고딕", 돋움, 굴림;
+    height: 2300px;
+}
+
+/* 리스트 초기화 */
+ul, ol {
+    list-style-type: none;
+}
+
+/* 링크 초기화 */
+a:link {
+    color: #ffffff;
+    text-decoration: none;
+} /* 방문전 링크일때 자홍색 선없음 */
+a:visited {
+    color: #ffffff;
+    text-decoration: none;
+} /* 방문했던 링크일때 회색 위에선*/
+a:hover {
+    color: #ffffff;
+    text-decoration: none;
+} /* 마우스오버일때 파란색 아래선 */
+a:active {
+    color: #ffffff;
+    text-decoration: none;
+} /* 클릭했을때 빨간색 중앙선*/
+
+/* clearfix */
+.clearfix {
+    *zoom: 1;
+}
+
+.clearfix:before, .clearfix:after {
+    display: block;
+    content: "";
+    line-height: 0;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+/* ******************레이아웃************************** */
+#wrap {
+    position: relative;
+    margin: 0px auto;
+    width: 100%;
+    height: auto;
+}
+
+/* fixed때문에 무조건 헤더 밑에있는 id에다가 margin이나 padding주기 꼭! */
+#wrap>#header {
+    position: fixed;
+    top: 0;
+    /* width: 100% */
+    left: 0;
+    right: 0;
+    padding: 10px 0px 10px 0px;
+    z-index: 11;
+    background-color:#fff;
+}
+
+#wrap>#area {
+    padding: 10px 0px 10px 0px;
+    background-color:#00C73C;
+}
+
+/* ******************해더(로고  로그인,회원가입)************************** */
+/* 헤더 제목 폰트*/
+#header>#section>h1>a {
+    font-family: 'TTCrownMychewR';
+}
+
+#header>#section>h1 {
+    float: left;
+    color: black;
+    font-size: 35px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/*헤더 섹션*/
+#header>#section {
+    width: 1024px;
+    height: 64px;
+    background: none;
+    margin: auto;
+}
+
+#header>#section>h1:hover {
+    cursor: pointer;
+}
+
+/*헤더 검색*/
+#header>#section>button {
+    float: right;
+    margin: 10px 0px 0px 0px;
+    padding: 0px;
+    width: 30px;
+    height: 30px;
+    color: #FFF;
+    background-color:#00C73C;
+}
+
+#btn_search {
+    width: 30px;
+    height: 30px;
+}
+
+#search-icon {
+    width: 25px;
+    height: 25px;
+    background-color:#00C73C;
+}
+
+#user-icon {
+    width: 30px;
+    height: 30px;
+}
+/* 헤더 ul */
+#header ul {
+    margin: 20px -390px 0px 0px;
+    float: right;
+    line-height: 1;
+}
+/* 헤더 li */
+#header ul>li {
+    font-size: 20px;
+
+}
+
+
+/* 헤더 펜션글자 */
+#area h2 {
+    display: block;
+    margin-left: 246px;
+    font-size: 30px;
+    font-weight: normal;
+    letter-spacing: -1px;
+    color: #fff;
+}
+
+/* 헤더 지역선택 */
+#area span {
+    border: 1px solid white;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 10px 0px 5px 246px;
+    font-size: 18px;
+    font-weight: normal;
+    letter-spacing: -1px;
+    color: #fff;
+}
+
+/*List header*/
+.pc .gnb_pc {
+    display: inline-block;
+    top: 27px;
+    right: 31px;
+}
+
+.gnb_pc {
+    width: auto;
+    text-align: right;
+}
+
+ul, ol, li {
+    list-style: none;
+}
+
+/* header li */
+.gnb_pc li {
+    display: inline-block;
+    position: relative;
+    min-width: 53px;
+    min-height: 35px;
+    margin-left: 30px;
+    vertical-align: top;
+    margin-right: 40px;
+}
+
+/* header li -> a */
+.gnb_pc li a {
+    display: inline-block;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0;
+}
+
+/* header 지역선택 */
+.sub_top {
+    width: 1024px;
+    height: 211px;
+    margin: 0 auto;
+    padding-top: 70px;
+    border-radius: 0;
+    background:#00C73C;
+}
+
+.sub_top {
+    background: none;
+    position: relative;
+}
+
+.sub_top_wrap {
+    height: 211px;
+    background:#00C73C;
+}
+
+.sub_top h2 {
+    display: block;
+    margin: 21px 0 0 0px;
+    font-size: 38px;
+    font-weight: normal;
+    letter-spacing: -1px;
+    color: #fff;
+}
+
+.sub_top .area {
+    position: relative;
+    top: 21px;
+    height: auto;
+}
+
+.sub_top .area .btn_area {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: 32px;
+    margin: 0 0 0 0px;
+    padding: 0 24px 0 24px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.04)
+    url(//image.goodchoice.kr/images/web_v3/ico_arr_down_2.png) right 10px
+    top 8px no-repeat !important;
+    background-size: 18px auto !important;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 32px;
+    color: #fff;
+}
+
+.sub_top .area .btn_area span {
+    display: inline;
+    background: url(//image.goodchoice.kr/images/web_v3/ico_arr_gt.png) 100%
+    50% no-repeat;
+    background-size: 12px auto;
+    font-size: 18px;
+    line-height: 32px;
+    color: #fff;
+}
+
+.gnb_pc {
+    display: inline-block;
+    width: auto;
+    text-align: right
+}
+
+.gnb_pc li {
+    display: inline-block;
+    position: relative;
+    min-width: 53px;
+    min-height: 35px;
+    margin-left: 30px;
+    vertical-align: top
+}
+
+.gnb_pc li ul {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 5px;
+    padding: 32px;
+    background: #fff;
+    text-align: left;
+    -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.gnb_pc li ul li {
+    display: block;
+    min-width: auto;
+    min-height: auto;
+    margin: 0 0 14px 0
+}
+
+.gnb_pc li ul li b {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 21px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    font-size: 16px;
+    line-height: normal;
+    font-weight: bold;
+    white-space: nowrap;
+    text-overflow: ellipsis
+}
+
+.gnb_pc li ul li a, .gnb_pc li ul li button {
+    overflow: visible !important;
+    display: block;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.87)
+}
+
+.gnb_pc li ul li button {
+    padding: 0;
+    border: none;
+    background: none;
+    line-height: 1;
+}
+
+.gnb_pc li ul li a:hover {
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.87)
+}
+
+.gnb_pc li ul li a span {
+    display: inline-block;
+    padding-left: 6px;
+    font-weight: bold;
+    color: rgb(230, 28, 81)
+}
+
+.gnb_pc .list_03 {
+    top: 30px;
+    left: -65px;
+}
+.list_03_1{
+    width: 120px;
+}
+.gnb_pc .list_04 {
+    top: 30px;
+    left: -90px;
+}
+.list_04_1{
+    width: 149px;
+}
+.gnb_pc li a {
+    display: inline-block;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0
+}
+
+.gnb_pc li a:hover {
+    color: #fff
+}
+
+.gnb_pc li button {
+    border: none;
+    padding: 0;
+    background: none;
+    font-size: 18px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0
+}
+
+.gnb_pc li button:hover {
+    color: rgba(255, 255, 255, 1)
+}
+
+.gnb_pc li li button:hover {
+    color: rgba(0, 0, 0, 0.87)
+}
+
+.gnb_pc .pic a {
+    position: absolute;
+    top: -5px;
+    left: 0;
+    overflow: hidden;
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    border-radius: 100%
+}
+
+.gnb_pc .pic img {
+    width: 100%;
+    height: 100%
+}
+
+.color-sub{
+    color:#FFFFFFCC;
+    font-size : 26px;
+    font-family: 'TTCrownMychewR';
+}
+/* ******************푸터************************** */
+footer {
+    overflow: hidden;
+    clear: both;
+    position: absolute;
+    padding: 63px 31px 40px 31px !important;
+    border-top: 1px solid black;
+    background:#fff;
+    font-size: 13px;
+    line-height: 20px;
+    bottom: -455%;
+    width: 100%;
+}
+
+footer .align {
+    width: 1024px;
+    margin: 0 auto;
+}
+
+footer .link {
+    overflow: hidden;
+}
+
+footer ul {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+ul, ol, li {
+    list-style: none;
+}
+
+footer .link li {
+    float: left;
+    margin-bottom: 5px;
+    line-height: normal;
+    font-family: 'TTCrownMychewR';
+    font-size: 18px;
+}
+
+
+footer .link li:nth-child(6) {
+    clear: both;
+}
+
+footer .link li:nth-child(5), footer .link li:nth-child(8) {
+    clear: none;
+}
+
+footer .link li:last-child {
+    margin-bottom: 0;
+}
+
+footer .link li span {
+    display: inline-block;
+    position: relative;
+    top: -2px;
+    width: 24px;
+    font-size: 11px;
+    text-align: center;
+}
+
+footer .link li a {
+    display: inline-block;
+    color: black;
+}
+
+footer p {
+    color: black;
+    font-family: 'TTCrownMychewR';
+    font-weight: normal;
+    font-size: 18px;
+}
+
+footer address {
+    line-height: 22px;
+    display: inline-block;
+}
+
+address, caption, em, var {
+    font-style: normal;
+    font-weight: normal;
+}
+
+
+
+.footer-col{
+
+    color: black;
+    font-family: 'TTCrownMychewR';
+    font-size: 18px;
+}

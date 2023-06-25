@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.example.phone.dao.AdminDao">
+    <!-- id중복체크 -->
+    <select id="adminIdCheck" resultType="int" parameterType="String">
+        SELECT COUNT(*)
+        FROM BUYER_INFO
+        WHERE BUYER_ID = #{buyerId}
+    </select>
+
+    <insert id="adminInsert" parameterType="com.example.phone.dto.AdminDto">
+        INSERT INTO BUYER_INFO VALUES(BUYER_INFO_SEQ.NEXTVAL,SYSDATE,#{buyerNm},#{buyerId},#{buyerPw},#{buyerEmail},#{buyerPh})
+    </insert>
+
+    <select id="adminLogin" parameterType="com.example.phone.dto.AdminDto" resultType="com.example.phone.dto.AdminDto">
+        SELECT  BUYER_NO AS BUYERNO,
+                BUYER_ID AS BUYERID,
+                BUYER_PW AS BUYERPW,
+                BUYER_NM AS BUYERNM,
+                BUYER_EMAIL AS BUYEREMAIL,
+                BUYER_PH AS BUYERPH
+        FROM BUYER_INFO
+        WHERE BUYER_ID = #{buyerId}
+        AND BUYER_PW = #{buyerPw}
+    </select>
+
+</mapper>
